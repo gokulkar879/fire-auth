@@ -1,0 +1,30 @@
+.login{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.login .form {
+    width: 40%;
+    min-width: 450px;
+}
+.login h2{
+    letter-spacing: 3px;
+    position: relative;
+    margin-bottom: 30px;
+}
+.login h2::after{
+    content:'';
+    position: absolute;
+    top: 110%;
+    left: 0%;
+    width: 100px;
+    height: 4px;
+    border-radius: 10px;
+    background: rgb(0, 110, 255);
+}
+a{
+    margin-left: 20px;
+}
