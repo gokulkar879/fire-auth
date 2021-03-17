@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { auth, db, googleProvider } from './config'
+import { auth,  db, googleProvider, facebookProvider, twitterProvider } from './config'
 
 
 const AuthContext = React.createContext()
@@ -21,12 +21,21 @@ const [loading, setLoading] = useState(true)
   function signInWithGoogle()  {
     return auth.signInWithPopup(googleProvider)
   }
+
+  function signInWithFacebook() {
+    return auth.signInWithPopup(facebookProvider)
+  }
+  function signInWithTwitter() {
+    return auth.signInWithPopup(twitterProvider)
+  }
+
   function logout() {
     return auth.signOut()
   }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
+
       setUser(user)
       setLoading(false)
 
@@ -41,6 +50,8 @@ const [loading, setLoading] = useState(true)
        db,
        login,
        signInWithGoogle,
+       signInWithFacebook,
+       signInWithTwitter,
        logout
     }}>
 {

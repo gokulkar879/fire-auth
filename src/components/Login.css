@@ -28,3 +28,20 @@
 a{
     margin-left: 20px;
 }
+.buttons{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    min-width: 450px;
+    
+    
+
+}
+.buttons button{
+    margin: 15px 20px;
+    width: 100%;
+    letter-spacing: 2px;
+}

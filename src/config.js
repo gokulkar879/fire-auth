@@ -13,9 +13,11 @@ const app = firebase.initializeApp({
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 })
+
 export const db = app.firestore()
 export const auth = app.auth()
 export const googleProvider = new firebase.auth.GoogleAuthProvider()
-
+export const facebookProvider = new firebase.auth.FacebookAuthProvider()
+export const twitterProvider = new firebase.auth.TwitterAuthProvider()
 
 export default app

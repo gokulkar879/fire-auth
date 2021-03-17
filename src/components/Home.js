@@ -1,16 +1,25 @@
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
-import { db } from '../config'
+
 import { useGlobalContext } from '../context'
 import { useHistory } from 'react-router'
+import { auth } from '../config'
 // import { Button } from 'react-bootstrap'
+import './Home.css'
+
+
 
 function Home() {
-    const { user, logout } = useGlobalContext()
-    const [name, setName] = useState({})
-    console.log(user)
+
+    const { user, logout, db } = useGlobalContext()
+    const [name, setName] = useState('')
+
     const history = useHistory()
-    const handleClick =async (e) => {
+    const fetchData = () => {
+       setName(user.displayName)
+       
+    }
+    const handleClick = async (e) => {
        try{
        await logout();
 history.push("/login")
@@ -19,17 +28,19 @@ history.push("/login")
        }
     }
     useEffect(() => {
-     const docref = db.collection("users").doc(user.uid);
-     docref.get().then(res =>{
-         setName({
-             first: name.firstName,
-             last: name.lastName
-         })
-     })
+    
+     fetchData()
+     
     },[])
     return (
-        <div>
-            <Button onClick={handleClick}>Log Out</Button>
+        <div className="home">
+           <div className="card">
+               <h3>{name}</h3>
+               <Button onClick={handleClick}>Log Out</Button>
+           </div>
+                
+            
+            
         </div>
     )
 }

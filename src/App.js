@@ -9,7 +9,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 
 function App() {
-  console.log(process.env.REACT_APP_API_KEY,"vsjjsdosjfs")
+  
   return (
     <Router>
       <Switch>

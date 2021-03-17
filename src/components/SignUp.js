@@ -15,18 +15,12 @@ function SignUp() {
     const [error, setError] = useState('')
      
 
-    const { signup, signInWithGoogle } = useGlobalContext()
+    const { signup} = useGlobalContext()
 
     const history = useHistory()
 
 
-  const handleSignIn = e => {
-    e.preventDefault()
-    signInWithGoogle().then(res =>{
-      history.push("/")
-    })
-  }
-
+ 
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -79,9 +73,7 @@ function SignUp() {
       Login
   </Link>
 </Form>
-<Button onClick={handleSignIn}>
-  google
-</Button>
+
         </div>
     )
 }
