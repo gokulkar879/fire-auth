@@ -13,11 +13,33 @@ function Home() {
 
     const { user, logout, db } = useGlobalContext()
     const [name, setName] = useState('')
+    const [image, setImage] = useState('')
 
     const history = useHistory()
-    const fetchData = () => {
-       setName(user.displayName)
-       
+    const fetchData = async () => {
+        console.log(user)
+        const userRef = db.doc(`users/${user.uid}`)
+        const snapshot = await userRef.get()
+        if(!snapshot.exists) {
+            const { email, displayName, photoURL } = user
+        
+        try{
+       await userRef.set({
+        displayName,
+        email,
+        photoURL,
+       })
+        } catch{
+
+        }
+    } else {
+        const userRef = db.doc(`users/${user.uid}`)
+        const snapshot = await userRef.get()
+
+        const { email, displayName, photoURL } = user
+        setName(displayName)
+        setImage(photoURL)
+    }
     }
     const handleClick = async (e) => {
        try{
@@ -31,11 +53,12 @@ history.push("/login")
     
      fetchData()
      
-    },[])
+    },[image])
     return (
         <div className="home">
            <div className="card">
                <h3>{name}</h3>
+               <img src={`${image}`}></img>
                <Button onClick={handleClick}>Log Out</Button>
            </div>
                 

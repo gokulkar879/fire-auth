@@ -17,37 +17,18 @@ function Login() {
   const handleSignInWithGoogle = async (e) => {     //google sign in handler
     e.preventDefault()
     try {
-     let res = await signInWithGoogle()
-    //  console.log(res)
-     let newUser = res.additionalUserInfo.isNewUser
-     if(newUser) {
-       console.log(res)
-      db.collection("users").doc(res.user.uid).set({
-       
-        displayName: res.user.displayName,
-        email: res.user.email
-      })
-        .then(() => history.push("/"))
-     }
-      history.push("/")
+     let res = await signInWithGoogle()  
+     setError('')
+     history.push("/")
     } catch {
-
+     setError("could not sign in")
     }
   }
   const handleSignInWithFacebook = async (e) => {    //facebook sign in handler
     e.preventDefault()
     try {
       let res = await signInWithFacebook()
-      let newUser = res.additionalUserInfo.isNewUser
-      if(newUser) {
-        // console.log(res)
-       db.collection("users").doc(res.user.uid).set({
-        
-         displayName: res.user.displayName,
-         email: res.user.email
-       })
-         .then(() => history.push("/"))
-      }
+      setError('')
       history.push("/")
     } catch (err) {
       setError("could not sign in")
@@ -57,16 +38,7 @@ function Login() {
     e.preventDefault()
     try {
       let res = await signInWithTwitter()
-      let newUser = res.additionalUserInfo.isNewUser
-      if(newUser) {
-        // console.log(res)
-       db.collection("users").doc(res.user.uid).set({
-        
-         displayName: res.user.displayName,
-         email: res.user.email
-       })
-         .then(() => history.push("/"))
-      }
+     setError('')
       history.push("/")
     } catch (err) {
       setError("could not sign in")
@@ -78,7 +50,7 @@ function Login() {
   const handleSubmit = async (e) => {       //normal email and password sign in handler
     e.preventDefault()
     try {
-      await login(email, password)
+      const res = await login(email, password)
       history.push("/")
     } catch {
        setError("could not sign in")

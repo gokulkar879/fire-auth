@@ -13,35 +13,44 @@ function SignUp() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [file, setFile] = useState(null)
      
 
-    const { signup} = useGlobalContext()
+    const { signup, storageRef, auth} = useGlobalContext()
 
     const history = useHistory()
-
-
  
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-
-      
      
+      
       try{
         setError('')
-        const newUser = signup(email, password).then((res) => {
-          db.collection("users").doc(res.user.uid).set({
-            firstName: first,
-            lastName: last,
-            initials: first + last
-            
-          })
-        }).then(() => history.push("/"))
+        const newUser = await signup(email, password)
+       
+        const userRef = db.doc(`users/${newUser.uid}`)
+        const snapshot = await userRef.get()
+        if(!snapshot.exists) {
+            const {displayName, email, photoURL} = newUser
+        
+        try{
+       await userRef.set({
+        displayName,
+        email,
+        photoURL:null,
+       })
+        } catch{
 
-      } catch{
+        }
+        history.push("/")
+
+      }
+     } catch{
           setError('failed to create a account')
       }
-
     }
+
+    
         return (
         <div className="signup">
                    <h2 className="heading">
@@ -66,6 +75,7 @@ function SignUp() {
     <Form.Label>Password</Form.Label>
     <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
   </Form.Group>
+  
   <Button variant="primary" type="submit">
     SignUp
   </Button>

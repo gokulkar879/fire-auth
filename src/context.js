@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { auth,  db, googleProvider, facebookProvider, twitterProvider } from './config'
+import { auth,storageRef,  db, googleProvider, facebookProvider, twitterProvider } from './config'
 
 
 const AuthContext = React.createContext()
@@ -52,7 +52,8 @@ const [loading, setLoading] = useState(true)
        signInWithGoogle,
        signInWithFacebook,
        signInWithTwitter,
-       logout
+       logout,
+       storageRef
     }}>
 {
    !loading && children

@@ -5,9 +5,19 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: scroll
 }
 .card{
     text-align: center;
     width: 45% !important;
     min-width: 450px;
+}
+.card h3{
+    letter-spacing: 2px;
+    margin: 10px 0px;
+}
+img{
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain
 }
